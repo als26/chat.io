@@ -40,12 +40,19 @@ io.sockets.on('connection', function(socket){
 
   //new user
   socket.on('new user', function(data, callback) {
-    callback(true);
-    console.log("New user: "+data);
-    //assign username from data into local variable
-    socket.username = data;
-    users.push(socket.username);
-    updateUsernames();
+    if (users.indexOf(data) >= 0) {
+      callback(false);
+      console.log("false");
+    }
+    else {
+      callback(true);
+      console.log("New user: "+data);
+      //assign username from data into local variable
+      socket.username = data;
+      users.push(socket.username);
+      updateUsernames();
+    }
+
   });
 
   function updateUsernames() {

@@ -28,12 +28,17 @@ $(function() {
         $userFormArea.hide();
         $messageArea.show();
       }
+      else{
+        if ($userForm.next(".validation").length == 0) {
+          $userForm.after('<p class="validation"><strong>That username is taken. Please try another one!</strong></p>');
+        }
+      }
     });
     $username.val('');
   });
 
   socket.on('new message', function(data){
-      $chat.append('<div class="well"><strong>'+data.user+': </strong>'+data.msg+'</div>')
+      $chat.append('<div class="well"><strong>'+data.user+': </strong>'+data.msg+'</div>');
   });
 
   socket.on('get users', function(data){
